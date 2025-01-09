@@ -19,7 +19,8 @@ public class ladoDasPedras : Destruiveis
         {
             Debug.Log("foi");
 
-            if (Input.GetButton("Fire3"))
+
+            if (Input.GetButtonDown("Fire3"))
             {
 
                 Debug.Log("foi de novo");
@@ -31,12 +32,13 @@ public class ladoDasPedras : Destruiveis
                     pedra += 1;
                 }
                 Tempo();
-
-
             }
         }
 
-
+            
     }
+
+
+    
 
 }

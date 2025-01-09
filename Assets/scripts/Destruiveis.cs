@@ -63,9 +63,13 @@ public class Destruiveis : MonoBehaviour
 
     protected virtual void AnimDestroyMe()
     {
-        Delay = true;
-        player.Break = true;
+        Delay = true; // Ativa o estado de atraso
+        player.Break = true; // Marca que o jogador está quebrando algo
+
+
     }
+
+    
 
 
     protected virtual void OnCollect()

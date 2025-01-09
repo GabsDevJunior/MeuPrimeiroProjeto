@@ -142,6 +142,8 @@ public class Player : MonoBehaviour
 
     public void animDestroyLeft()
     {
+
+        Debug.Log("anim foi chamado");
         // Cria uma sequência para controlar os tweens
         DG.Tweening.Sequence leverSequence = DOTween.Sequence(); // Deve funcionar corretamente
 
@@ -165,12 +167,28 @@ public class Player : MonoBehaviour
     {
         speed = initialspeed;
         Debug.Log("Animação resetada!");
-        transform.rotation = initialRotation;
-        DOTween.Kill(transform.rotation);
+    
     }
 
 
-    
+    private void OnTriggerStay2D(Collider2D collision)
+    {
+        if (collision.gameObject.layer == 7)
+        {
+            if (Input.GetButtonDown("Fire3"))
+            {
+                animDestroyRigth();
+            }
+        }
+
+        if (collision.gameObject.layer == 8 && Break == true)
+        {
+            if (Input.GetButtonDown("Fire3"))
+            {
+                animDestroyLeft();
+            }
+        }
+    }
 
 }
    
