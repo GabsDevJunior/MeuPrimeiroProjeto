@@ -19,13 +19,37 @@ public class Player : MonoBehaviour
     public float slowDuration = 2f; // Tempo para ir lentamente para -52
     public float fastDuration = 0.5f; // Tempo para ir rapidamente para 20
     public bool Break;
- 
+    public Destruiveis destruiveis;
+
+
+    public float forcejump;
+
+  
+
+  
+
+    public Vector2 friction = new Vector2(1f, 0f);
+
+   
+
+    [Header("Animation")]
+    public float JumpScaleY = 1.5f;
+    public float JumpScaleX = .7f;
+    public float GroundAnimationY = 1.5f;
+    public float GroundAnimationX = .5f;
+    public float AnimationDurationJump;
+    public float AnimationDurationGround;
+    public Ease ease = Ease.OutBack;
+
+    public bool onJump;
+    public bool onDoubleJump;
 
 
     [Header("movement")]
     public float speed;
     public float initialspeed;
     public Vector2 movement;
+    public bool Right;
 
     [Header("troca de ferramentas")]
     public float ferramentas;
@@ -37,7 +61,6 @@ public class Player : MonoBehaviour
     public GameObject PrefeabPedra;
     public GameObject PrefeabArvore;
 
-    public Ease ease;
 
 
 
@@ -46,6 +69,7 @@ public class Player : MonoBehaviour
     {
         initialspeed = speed;
         DOTween.SetTweensCapacity(2000, 1000);
+        destruiveis = FindObjectOfType<Destruiveis>();
     }
 
     private void Start()
@@ -58,24 +82,47 @@ public class Player : MonoBehaviour
     {
        
         Ferramentas();
-        if(speed > 0)
-        {
-            transform.eulerAngles = new Vector3(0, 0, 0);        
-        }
-
-        if (speed < 0)
-        {
-            transform.eulerAngles = new Vector3(0, 180, 0);
-        }
-        movement = new Vector2 (Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
+        Move();
+        jump();
+       
     }
 
-    private void FixedUpdate()
+
+    private void Move()
     {
-        rig.MovePosition(rig.position + movement * speed * Time.fixedDeltaTime);
+
+        if (Input.GetKey(KeyCode.D))
+        {
+            rig.velocity = new Vector2(speed, rig.velocity.y);
+
+        }
+
+        if (Input.GetKey(KeyCode.A))
+        {
+            rig.velocity = new Vector2(-speed, rig.velocity.y);
+
+
+        }
+
+        if (rig.velocity.x > 0)
+        {
+            rig.velocity += friction;
+            machado.transform.eulerAngles = new Vector3(0, 0, 0);
+            picareta.transform.eulerAngles = new Vector3(0, 0, 0);
+            Right = false;
+
+
+        }
+
+        if (rig.velocity.x < 0)
+        {
+            rig.velocity -= friction;
+            machado.transform.eulerAngles = new Vector3(0, 180, 0);
+            picareta.transform.eulerAngles = new Vector3(0, 180, 0);
+            Right = true;
+        }
     }
 
-    
 
     void Ferramentas()
     {
@@ -117,7 +164,58 @@ public class Player : MonoBehaviour
         }
     }
 
- 
+    void resetAnim()
+    {
+
+        rig.transform.localScale = new Vector2(1, 1);
+
+        DOTween.Kill(rig.transform);
+    }
+    void jump()
+    {
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            if (!onJump)
+            {
+                rig.velocity = Vector2.up * forcejump;
+                onJump = true;
+                onDoubleJump = false;
+                resetAnim();
+
+            }
+            else if (!onDoubleJump)
+            {
+                rig.velocity = Vector2.up * forcejump;
+                onDoubleJump = true;
+                resetAnim();
+
+            }
+        }
+    }
+
+
+
+    
+
+
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.layer == 9)
+        {
+
+            resetAnim();
+
+
+            onJump = false;
+            onDoubleJump = true;
+        }
+    }
+
+
+
+
+
 
     public void animDestroyRigth()
     {
@@ -133,7 +231,13 @@ public class Player : MonoBehaviour
             .SetEase(Ease.OutBack)); // Suavização rápida
 
         leverSequence.Append(transform.DORotate(new Vector3(0, 0, 0), fastDuration)
-            .SetEase(Ease.InOutSine));
+            .SetEase(Ease.InOutSine))
+        .OnComplete(() =>
+         {
+             DOTween.Kill(transform);
+             speed = initialspeed;
+             Debug.Log("Animação concluída!");
+         });
 
         speed = 0;
 
@@ -156,7 +260,13 @@ public class Player : MonoBehaviour
             .SetEase(Ease.OutBack)); // Suavização rápida
 
         leverSequence.Append(transform.DORotate(new Vector3(0, 0, 0), fastDuration)
-            .SetEase(Ease.InOutSine));
+            .SetEase(Ease.InOutSine))
+            .OnComplete(() =>
+            {
+                DOTween.Kill(transform);
+                speed = initialspeed;
+                Debug.Log("Animação concluída!");
+            });
 
         speed = 0;
 
@@ -165,30 +275,63 @@ public class Player : MonoBehaviour
 
     public void ResetAnim()
     {
-        speed = initialspeed;
-        Debug.Log("Animação resetada!");
-    
+        if (destruiveis.DestroyTime > destruiveis.DestroyDelay)
+        {
+            speed = initialspeed;
+            Debug.Log("Animação resetada!");
+        }
     }
 
+
+    private void OnCollisionStay2D(Collision2D collision)
+    {
+        if (collision.gameObject.layer == 7 && Input.GetKeyDown(KeyCode.E))
+        {
+
+
+                animDestroyRigth();
+            
+        }
+
+        if (collision.gameObject.layer == 8 && Input.GetKeyDown(KeyCode.E))
+        {
+
+
+                animDestroyLeft();
+            
+        }
+
+
+    }
 
     private void OnTriggerStay2D(Collider2D collision)
     {
-        if (collision.gameObject.layer == 7)
+        if (collision.gameObject.layer == 7 && Input.GetKeyDown(KeyCode.E))
         {
-            if (Input.GetButtonDown("Fire3"))
-            {
-                animDestroyRigth();
-            }
+
+
+            animDestroyRigth();
+
         }
 
-        if (collision.gameObject.layer == 8 && Break == true)
+        if (collision.gameObject.layer == 8 && Input.GetKeyDown(KeyCode.E))
         {
-            if (Input.GetButtonDown("Fire3"))
-            {
-                animDestroyLeft();
-            }
+
+
+            animDestroyLeft();
+
         }
+
+
     }
 
+
+
+
+
 }
+
+
+
+
    

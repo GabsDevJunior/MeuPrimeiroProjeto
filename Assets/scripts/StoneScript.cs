@@ -2,29 +2,60 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class StoneScript : Destruiveis
+public class StoneScript : MonoBehaviour
 {
 
-    protected override void quebrado()
+    public float DestroyTime;
+    public float DestroyDelay;
+    public TreeBase treeBase;
+    public Player player;
+    public GameObject myTree;
+
+    public bool colidi;
+    public bool Delay;
+
+
+    private void Start()
     {
-        base.quebrado();
+     
+        player = FindObjectOfType<Player>();
     }
 
-    private void OnCollisionStay2D(Collision2D collision)
+    private void Update()
     {
-        if (collision.gameObject.layer == 6 && ferramentas == 2)
+        if (colidi)
         {
-            Debug.Log("foi");
-
-            if (Input.GetButtonDown("Fire3")) // Enquanto o botão está pressionado
+            player.ferramentas = 2;
+            if (Delay)
             {
-                Destroy(gameObject, DestroyDelay);
-                    
-             }
+                DestroyTime += Time.deltaTime;
+            }
+            if (DestroyTime >= DestroyDelay)
+            {
+                treeBase.isReviving = true;
+                DestroyTime = 0;
+                myTree.SetActive(false);
+                colidi = false;
+                Delay = false;
+            }
         }
-            
-            
-   }
+
+
+
+
+    }
+
+    private void OnTriggerStay2D(Collider2D collision)
+    {
+        if (collision.gameObject.layer == 6 && Input.GetKeyDown(KeyCode.E))
+        {
+            colidi = true;
+            Delay = true;
+            player.ferramentas = 2;
+        }
+    }
+
+
 
 
     

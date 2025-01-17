@@ -8,7 +8,6 @@ public class Destruiveis : MonoBehaviour
     public bool tempo;
     public float ferramentas;
     public Player player;
-    public StoneScript stoneScript;
     public float pedra;
     public float tronco;
 
@@ -22,7 +21,7 @@ public class Destruiveis : MonoBehaviour
         
 
     }
-    protected virtual void Update()
+    void Update()
     {
         if (Input.GetKeyDown(KeyCode.LeftShift))
         {
@@ -31,43 +30,15 @@ public class Destruiveis : MonoBehaviour
             
 
         }
-        if(tempo)
-        {
-            deelay();
-        }
-        if (Delay)
-        {
-            DestroyTime += Time.deltaTime;
-        }
+        
     }
     protected virtual void quebrado()
     {
-        Debug.Log("quebrado");
-        gameObject.SetActive(false);
-    
-        OnCollect();
-    }
-
-    protected virtual void deelay()
-    {
-        if (DestroyTime > DestroyDelay)
-        {
-
-            player.ResetAnim();
-            Delay = false;
-            player.Break = false;
-            DestroyTime = 0;
-            quebrado();
-        }
-    }
-
-    protected virtual void AnimDestroyMe()
-    {
-        Delay = true; // Ativa o estado de atraso
-        player.Break = true; // Marca que o jogador está quebrando algo
-
 
     }
+
+
+   
 
     
 

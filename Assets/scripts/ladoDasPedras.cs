@@ -4,38 +4,21 @@ using UnityEngine;
 
 public class ladoDasPedras : Destruiveis
 {
-    void Tempo()
-    {
-        tempo = true;
-    }
-
-
-
 
 
     private void OnTriggerStay2D(Collider2D collision)
     {
-        if (collision.gameObject.layer == 6 && ferramentas == 2)
+        if (collision.gameObject.layer == 6 && Input.GetKeyDown(KeyCode.E))
         {
-            Debug.Log("foi");
+            Delay = true;
+            player.ferramentas = 2;
 
-
-            if (Input.GetButtonDown("Fire3"))
+            if (DestroyTime >= DestroyDelay)
             {
-
-                Debug.Log("foi de novo");
-
-                AnimDestroyMe();
-
-                if (DestroyTime > DestroyDelay)
-                {
-                    pedra += 1;
-                }
-                Tempo();
+                quebrado();
             }
-        }
 
-            
+        }
     }
 
 

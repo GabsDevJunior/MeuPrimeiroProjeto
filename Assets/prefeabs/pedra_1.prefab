@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 5146556828030999425}
   - component: {fileID: 6459620260366000107}
   - component: {fileID: 4228364975258232701}
+  - component: {fileID: 9172951302271325651}
   m_Layer: 3
   m_Name: pedra_1
   m_TagString: Untagged
@@ -117,10 +118,10 @@ BoxCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.09217644, y: -0.32602143}
+  m_Offset: {x: 0.10389328, y: -0.40100968}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -131,7 +132,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1.6150112, y: 1.2978935}
+  m_Size: {x: 1.9102783, y: 1.147917}
   m_EdgeRadius: 0
 --- !u!114 &4228364975258232701
 MonoBehaviour:
@@ -153,6 +154,51 @@ MonoBehaviour:
   tronco: 0
   DestroyDelay: 2.5
   DestroyTime: 0
+--- !u!61 &9172951302271325651
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4816526129385912249}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0.106492996, y: -0.3565812}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 2.1333334, y: 2.1333334}
+    newSize: {x: 2.1333334, y: 2.1333334}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 1.5866375, y: 1.4201708}
+  m_EdgeRadius: 0
 --- !u!1 &5236941380698384405
 GameObject:
   m_ObjectHideFlags: 0
@@ -163,7 +209,6 @@ GameObject:
   m_Component:
   - component: {fileID: 3673767790639123538}
   - component: {fileID: 8542662679057952310}
-  - component: {fileID: 6560995371525120293}
   m_Layer: 7
   m_Name: right
   m_TagString: Untagged
@@ -215,10 +260,10 @@ BoxCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.67217135, y: -0.393157}
+  m_Offset: {x: 0.6945741, y: -0.393157}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -229,28 +274,8 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.5011554, y: 1.1437359}
+  m_Size: {x: 0.5459609, y: 1.1437359}
   m_EdgeRadius: 0
---- !u!114 &6560995371525120293
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5236941380698384405}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4f9a173fbcdbf834ab6dd911362246e1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Delay: 0
-  tempo: 0
-  ferramentas: 0
-  player: {fileID: 0}
-  pedra: 0
-  tronco: 0
-  DestroyDelay: 2.5
-  DestroyTime: 0
 --- !u!1 &8748582741001803077
 GameObject:
   m_ObjectHideFlags: 0
@@ -261,7 +286,6 @@ GameObject:
   m_Component:
   - component: {fileID: 4504494311072119181}
   - component: {fileID: 8704439010290954184}
-  - component: {fileID: 1368820085889059589}
   m_Layer: 8
   m_Name: left
   m_TagString: Untagged
@@ -313,10 +337,10 @@ BoxCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.6045313, y: -0.36356425}
+  m_Offset: {x: -0.61349225, y: -0.36356425}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -327,25 +351,5 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.3151455, y: 1.0676398}
+  m_Size: {x: 0.33306742, y: 1.0676398}
   m_EdgeRadius: 0
---- !u!114 &1368820085889059589
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8748582741001803077}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4f9a173fbcdbf834ab6dd911362246e1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Delay: 0
-  tempo: 0
-  ferramentas: 0
-  player: {fileID: 0}
-  pedra: 0
-  tronco: 0
-  DestroyDelay: 2.5
-  DestroyTime: 0
