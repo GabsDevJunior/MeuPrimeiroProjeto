@@ -3,7 +3,10 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - barrier
+  - Attack
+  - attack
   layers:
   - Default
   - TransparentFX
@@ -16,10 +19,10 @@ TagManager:
   - Left
   - ground
   - picareta
-  - 
-  - 
-  - 
-  - 
+  - mudancaLeft
+  - grade
+  - Exit
+  - Enemy
   - 
   - 
   - 

@@ -4,8 +4,10 @@ using Unity.VisualScripting;
 using UnityEngine;
 using DG.Tweening;
 using UnityEditor;
+using UnityEngine.UI;
 using Unity.Mathematics;
 using static UnityEngine.RuleTile.TilingRuleOutput;
+using Unity.VisualScripting.Antlr3.Runtime.Tree;
 
 public class Player : MonoBehaviour
 {
@@ -20,6 +22,8 @@ public class Player : MonoBehaviour
     public float fastDuration = 0.5f; // Tempo para ir rapidamente para 20
     public bool Break;
     public Destruiveis destruiveis;
+   
+
 
 
     public float forcejump;
@@ -61,6 +65,10 @@ public class Player : MonoBehaviour
     public GameObject PrefeabPedra;
     public GameObject PrefeabArvore;
 
+    public bool Exit;
+
+    public Text TextTree;
+
 
 
 
@@ -84,7 +92,9 @@ public class Player : MonoBehaviour
         Ferramentas();
         Move();
         jump();
-       
+        Exiting();
+
+
     }
 
 
@@ -171,6 +181,13 @@ public class Player : MonoBehaviour
 
         DOTween.Kill(rig.transform);
     }
+    public void Exiting()
+    {
+        if (Exit)
+        {
+            transform.position = Vector2.up * 10 * Time.deltaTime;
+        }
+    }
     void jump()
     {
         if (Input.GetKeyDown(KeyCode.Space))
@@ -212,6 +229,21 @@ public class Player : MonoBehaviour
         }
     }
 
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.layer == 9)
+        {
+
+            resetAnim();
+
+
+            onJump = false;
+            onDoubleJump = true;
+        }
+
+
+    }
+
 
 
 
@@ -237,6 +269,7 @@ public class Player : MonoBehaviour
              DOTween.Kill(transform);
              speed = initialspeed;
              Debug.Log("Animação concluída!");
+
          });
 
         speed = 0;
@@ -270,7 +303,6 @@ public class Player : MonoBehaviour
 
         speed = 0;
 
-
     }
 
     public void ResetAnim()
@@ -288,7 +320,7 @@ public class Player : MonoBehaviour
         if (collision.gameObject.layer == 7 && Input.GetKeyDown(KeyCode.E))
         {
 
-
+           
                 animDestroyRigth();
             
         }
@@ -296,8 +328,7 @@ public class Player : MonoBehaviour
         if (collision.gameObject.layer == 8 && Input.GetKeyDown(KeyCode.E))
         {
 
-
-                animDestroyLeft();
+            animDestroyLeft();
             
         }
 
