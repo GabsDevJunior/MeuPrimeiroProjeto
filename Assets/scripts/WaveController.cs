@@ -26,12 +26,12 @@ public class WaveController : MonoBehaviour
     void PartWave()
     {
 
-        if (timeWave >= 10f && timeWave < 10.004f )
+        if (timeWave >= 10f && timeWave <= 10.01f )
         {
             var projectile = Instantiate(goblinPrefeab);
             projectile.transform.position = WaveRight.position;
         }
-        if (timeWave >= 10f && timeWave < 10.004f)
+        if (timeWave >= 10f && timeWave <= 10.01f)
         {
             var projectile = Instantiate(goblinPrefeab);
             projectile.transform.position = WaveLeft.position;

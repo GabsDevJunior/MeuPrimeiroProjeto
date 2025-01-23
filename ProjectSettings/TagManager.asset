@@ -5,6 +5,8 @@ TagManager:
   serializedVersion: 2
   tags:
   - barrier
+  - Attack
+  - attack
   layers:
   - Default
   - TransparentFX
@@ -19,8 +21,8 @@ TagManager:
   - picareta
   - mudancaLeft
   - grade
-  - 
-  - 
+  - Exit
+  - Enemy
   - 
   - 
   - 

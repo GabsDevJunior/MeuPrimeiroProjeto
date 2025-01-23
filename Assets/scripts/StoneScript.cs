@@ -10,6 +10,8 @@ public class StoneScript : MonoBehaviour
     public TreeBase treeBase;
     public Player player;
     public GameObject myTree;
+    public GameObject E;
+    public GameObject Press;
 
     public bool colidi;
     public bool Delay;
@@ -17,7 +19,8 @@ public class StoneScript : MonoBehaviour
 
     private void Start()
     {
-     
+        Press.SetActive(false);
+        E.SetActive(false);
         player = FindObjectOfType<Player>();
     }
 
@@ -45,13 +48,29 @@ public class StoneScript : MonoBehaviour
 
     }
 
-    private void OnTriggerStay2D(Collider2D collision)
+    
+        private void OnTriggerStay2D(Collider2D collision)
     {
-        if (collision.gameObject.layer == 6 && Input.GetKeyDown(KeyCode.E))
+        if (collision.gameObject.layer == 6 )
+
         {
-            colidi = true;
-            Delay = true;
-            player.ferramentas = 2;
+            Press.SetActive(true);
+            E.SetActive(true);
+            if (Input.GetKeyDown(KeyCode.E))
+
+            {
+                colidi = true;
+                Delay = true;
+            }
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.gameObject.layer == 6)
+        {
+            Press.SetActive(false);
+            E.SetActive(false);
         }
     }
 
