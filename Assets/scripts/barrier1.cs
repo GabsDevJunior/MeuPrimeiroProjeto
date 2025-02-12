@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class barrier : MonoBehaviour
+public class barrier1 : MonoBehaviour
 {
     public AttackCollider attackCollider;
     public int Life;

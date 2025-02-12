@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI; 
 
 public class StoneScript : MonoBehaviour
 {
@@ -16,31 +17,33 @@ public class StoneScript : MonoBehaviour
     public bool colidi;
     public bool Delay;
 
+    public float treeCounts;
+    public Text TextTree;
 
+
+    private void Awake()
+    {
+
+        player = FindObjectOfType<Player>();
+    }
     private void Start()
     {
+        TextTree = player.TextStone;
         Press.SetActive(false);
         E.SetActive(false);
-        player = FindObjectOfType<Player>();
     }
 
     private void Update()
     {
         if (colidi)
         {
-            player.ferramentas = 2;
-            if (Delay)
-            {
-                DestroyTime += Time.deltaTime;
-            }
-            if (DestroyTime >= DestroyDelay)
-            {
+
                 treeBase.isReviving = true;
-                DestroyTime = 0;
                 myTree.SetActive(false);
+                treeCounts += 1f;
+                TextTree.text = treeCounts.ToString();
                 colidi = false;
-                Delay = false;
-            }
+            
         }
 
 
@@ -51,14 +54,18 @@ public class StoneScript : MonoBehaviour
     
         private void OnTriggerStay2D(Collider2D collision)
     {
-        if (collision.gameObject.layer == 6 )
-
+        if (collision.gameObject.layer == 6)
         {
             Press.SetActive(true);
             E.SetActive(true);
-            if (Input.GetKeyDown(KeyCode.E))
+        }
+        if (collision.gameObject.layer == 16 )
 
+        {
+
+            if (player.ferramentas == 2)
             {
+
                 colidi = true;
                 Delay = true;
             }

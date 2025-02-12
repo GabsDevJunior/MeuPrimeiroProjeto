@@ -34,23 +34,12 @@ public class treeScript : MonoBehaviour
     private void Update()
     {
         if(colidi)
-        {
-
-            player.ferramentas = 3;
-            if (Delay)
-            {
-                DestroyTime += Time.deltaTime;
-            }
-            if(DestroyTime >= DestroyDelay)
-            {
+        {  
                 treeBase.isReviving = true;
-                DestroyTime = 0;
                 myTree.SetActive(false);
                 treeCounts += 1f;
                 TextTree.text = treeCounts.ToString();
                 colidi = false;
-                Delay = false;
-            }
         }
 
       
@@ -60,17 +49,17 @@ public class treeScript : MonoBehaviour
 
     private void OnTriggerStay2D(Collider2D collision)
     {
-        if (collision.gameObject.layer == 6 )
-
+        if(collision.gameObject.layer == 6)
         {
             Press.SetActive(true);
             E.SetActive(true);
-            if (Input.GetKeyDown(KeyCode.E))
+        }
+        if (collision.gameObject.layer == 16 && player.ferramentas == 3)
 
-            {
+        {
+            
                 colidi = true;
-                Delay = true;
-            }
+            
         }
     }
 

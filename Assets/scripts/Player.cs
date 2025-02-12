@@ -1,368 +1,307 @@
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 using DG.Tweening;
+using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine.UI;
 using Unity.Mathematics;
 using static UnityEngine.RuleTile.TilingRuleOutput;
-using Unity.VisualScripting.Antlr3.Runtime.Tree;
-
-public class Player : MonoBehaviour
-{
-    public Rigidbody2D rig;
-    
-    public quaternion initialRotation;
-
-    [Header("Destoy Settings")]
-    public float slowAngle = -52f; // Ângulo final do movimento lento
-    public float fastAngle = 20f;  // Ângulo final do movimento rápido
-    public float slowDuration = 2f; // Tempo para ir lentamente para -52
-    public float fastDuration = 0.5f; // Tempo para ir rapidamente para 20
-    public bool Break;
-    public Destruiveis destruiveis;
-   
 
 
-
-    public float forcejump;
-
-  
-
-  
-
-    public Vector2 friction = new Vector2(1f, 0f);
-
-   
-
-    [Header("Animation")]
-    public float JumpScaleY = 1.5f;
-    public float JumpScaleX = .7f;
-    public float GroundAnimationY = 1.5f;
-    public float GroundAnimationX = .5f;
-    public float AnimationDurationJump;
-    public float AnimationDurationGround;
-    public Ease ease = Ease.OutBack;
-
-    public bool onJump;
-    public bool onDoubleJump;
-
-
-    [Header("movement")]
-    public float speed;
-    public float initialspeed;
-    public Vector2 movement;
-    public bool Right;
-
-    [Header("troca de ferramentas")]
-    public float ferramentas;
-    public GameObject marreta;
-    public GameObject picareta;
-    public GameObject machado;
-    public GameObject facao;
-
-    public GameObject PrefeabPedra;
-    public GameObject PrefeabArvore;
-
-    public bool Exit;
-
-    public Text TextTree;
-
-
-
-
-
-    void Awake()
+    public class Player : MonoBehaviour
     {
-        initialspeed = speed;
-        DOTween.SetTweensCapacity(2000, 1000);
-        destruiveis = FindObjectOfType<Destruiveis>();
-    }
+        [Header("Player Settings")]
+        public float speed = 5f;
+        public float jumpForce = 10f;
+        public float forcejump = 10f;
+        public float attackDelay = 0.5f;
+        public float attackRange = 1f;
+        public float attackDamage = 10f;
 
-    private void Start()
-    {
-        initialRotation = transform.rotation; 
-         ferramentas = 1;
-    }
+        [Header("Destroy Settings")]
+        public float slowAngle = -52f;
+        public float fastAngle = 20f;
+        public float slowDuration = 2f;
+        public float fastDuration = 0.5f;
 
-    private void Update()
-    {
-       
-        Ferramentas();
-        Move();
-        jump();
-        Exiting();
+        [Header("Animation")]
+        public float jumpScaleY = 1.5f;
+        public float jumpScaleX = 0.7f;
+        public float groundAnimationY = 1.5f;
+        public float groundAnimationX = 0.5f;
+        public float animationDurationJump = 0.5f;
+        public float animationDurationGround = 0.5f;
+        public Ease ease = Ease.OutBack;
 
+        [Header("Movement")]
+        public bool isMovingRight = true;
+        public bool isJumping = false;
+        public bool isDoubleJumping = false;
+        public bool isAttacking = false;
+    public bool Exit = false;
 
-    }
+        [Header("Ferramentas")]
+        public int ferramentas = 1;
+        public GameObject marreta;
+        public GameObject picareta;
+        public GameObject machado;
+        public GameObject facao;
 
+        [Header("Pedras e Arvores")]
+        public GameObject prefebPedra;
+        public GameObject prefebArvore;
+        public Text TextTree;
+        public Text TextStone;
 
-    private void Move()
-    {
+        private Rigidbody2D rb;
+        private Animator animator;
+        private Destruiveis destruiveis;
+        private float initialJumpForce;
+        private float initialSpeed;
 
-        if (Input.GetKey(KeyCode.D))
+        private void Awake()
         {
-            rig.velocity = new Vector2(speed, rig.velocity.y);
-
+            rb = GetComponent<Rigidbody2D>();
+            animator = GetComponent<Animator>();
+            destruiveis = FindObjectOfType<Destruiveis>();
+            initialJumpForce = jumpForce;
+            initialSpeed = speed;
         }
 
-        if (Input.GetKey(KeyCode.A))
+        private void Update()
         {
-            rig.velocity = new Vector2(-speed, rig.velocity.y);
-
-
+            Move();
+            Jump();
+            Attack();
+            Ferramentas();
+            Exiting();
         }
 
-        if (rig.velocity.x > 0)
+        private void Move()
         {
-            rig.velocity += friction;
-            machado.transform.eulerAngles = new Vector3(0, 0, 0);
-            picareta.transform.eulerAngles = new Vector3(0, 0, 0);
-            Right = false;
+            float horizontalInput = Input.GetAxis("Horizontal");
+            float verticalInput = Input.GetAxis("Vertical");
 
+            Vector2 movement = new Vector2(horizontalInput, verticalInput);
 
-        }
-
-        if (rig.velocity.x < 0)
-        {
-            rig.velocity -= friction;
-            machado.transform.eulerAngles = new Vector3(0, 180, 0);
-            picareta.transform.eulerAngles = new Vector3(0, 180, 0);
-            Right = true;
-        }
-    }
-
-
-    void Ferramentas()
-    {
-        if(Input.GetKeyDown(KeyCode.LeftShift))
-        {
-            ferramentas += 1;
-            if (ferramentas > 4)ferramentas = 1;
-
-           
-        }
-
-        if(ferramentas == 1)
-        {
-            picareta.SetActive(false);
-            machado.SetActive(false);
-            facao.SetActive(false);
-            marreta.SetActive(true);
-        }
-        if (ferramentas == 2)
-        {
-            picareta.SetActive(true);
-            machado.SetActive(false);
-            facao.SetActive(false);
-            marreta.SetActive(false);
-        }
-        if (ferramentas == 3)
-        {
-            picareta.SetActive(false);
-            machado.SetActive(true);
-            facao.SetActive(false);
-            marreta.SetActive(false);
-        }
-        if (ferramentas == 4)
-        {
-            picareta.SetActive(false);
-            machado.SetActive(false);
-            facao.SetActive(true);
-            marreta.SetActive(false);
-        }
-    }
-
-    void resetAnim()
-    {
-
-        rig.transform.localScale = new Vector2(1, 1);
-
-        DOTween.Kill(rig.transform);
-    }
-    public void Exiting()
-    {
-        if (Exit)
-        {
-            transform.position = Vector2.up * 10 * Time.deltaTime;
-        }
-    }
-    void jump()
-    {
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            if (!onJump)
+            if (movement != Vector2.zero)
             {
-                rig.velocity = Vector2.up * forcejump;
-                onJump = true;
-                onDoubleJump = false;
-                resetAnim();
-
+                isMovingRight = movement.x > 0;
+                rb.velocity = new Vector2(movement.x * speed, rb.velocity.y);
             }
-            else if (!onDoubleJump)
-            {
-                rig.velocity = Vector2.up * forcejump;
-                onDoubleJump = true;
-                resetAnim();
 
+            if (isMovingRight)
+            {
+                machado.transform.eulerAngles = new Vector3(0, 0, 0);
+            }
+            else
+            {
+                machado.transform.eulerAngles = new Vector3(0, 180, 0);
             }
         }
-    }
 
-
-
-    
-
-
-
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if (collision.gameObject.layer == 9)
+        private void Jump()
         {
-
-            resetAnim();
-
-
-            onJump = false;
-            onDoubleJump = true;
-        }
-    }
-
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        if (collision.gameObject.layer == 9)
-        {
-
-            resetAnim();
-
-
-            onJump = false;
-            onDoubleJump = true;
-        }
-
-
-    }
-
-
-
-
-
-
-    public void animDestroyRigth()
-    {
-        // Cria uma sequência para controlar os tweens
-        DG.Tweening.Sequence leverSequence = DOTween.Sequence(); // Deve funcionar corretamente
-
-        // Movimento lento para -52
-        leverSequence.Append(transform.DORotate(new Vector3(0, 0, slowAngle), slowDuration)
-            .SetEase(Ease.InOutSine)); // Suavização lenta
-
-        // Movimento rápido para 20
-        leverSequence.Append(transform.DORotate(new Vector3(0, 0, fastAngle), fastDuration)
-            .SetEase(Ease.OutBack)); // Suavização rápida
-
-        leverSequence.Append(transform.DORotate(new Vector3(0, 0, 0), fastDuration)
-            .SetEase(Ease.InOutSine))
-        .OnComplete(() =>
-         {
-             DOTween.Kill(transform);
-             speed = initialspeed;
-             Debug.Log("Animação concluída!");
-
-         });
-
-        speed = 0;
-
-
-    }
-
-    public void animDestroyLeft()
-    {
-
-        Debug.Log("anim foi chamado");
-        // Cria uma sequência para controlar os tweens
-        DG.Tweening.Sequence leverSequence = DOTween.Sequence(); // Deve funcionar corretamente
-
-        // Movimento lento para -52
-        leverSequence.Append(transform.DORotate(new Vector3(0, 0, -slowAngle), slowDuration)
-            .SetEase(Ease.InOutSine)); // Suavização lenta
-
-        // Movimento rápido para 20
-        leverSequence.Append(transform.DORotate(new Vector3(0, 0, -fastAngle), fastDuration)
-            .SetEase(Ease.OutBack)); // Suavização rápida
-
-        leverSequence.Append(transform.DORotate(new Vector3(0, 0, 0), fastDuration)
-            .SetEase(Ease.InOutSine))
-            .OnComplete(() =>
+            if (Input.GetKeyDown(KeyCode.Space) && !isJumping)
             {
-                DOTween.Kill(transform);
-                speed = initialspeed;
-                Debug.Log("Animação concluída!");
-            });
+                isJumping = true;
+                rb.velocity = new Vector2(rb.velocity.x, jumpForce);
+                animator.SetTrigger("Jump");
+            }
+            else if (Input.GetKeyDown(KeyCode.Space) && isJumping && !isDoubleJumping)
+            {
+                isDoubleJumping = true;
+                rb.velocity = new Vector2(rb.velocity.x, jumpForce);
+                animator.SetTrigger("DoubleJump");
+            }
+        }
 
-        speed = 0;
-
-    }
-
-    public void ResetAnim()
-    {
-        if (destruiveis.DestroyTime > destruiveis.DestroyDelay)
+        private void Attack()
         {
-            speed = initialspeed;
-            Debug.Log("Animação resetada!");
+            if (Input.GetKeyDown(KeyCode.E) && !isAttacking)
+            {
+                isAttacking = true;
+                animator.SetTrigger("Attack");
+                StartCoroutine(AttackCoroutine());
+            }
+        }
+
+        private IEnumerator AttackCoroutine()
+        {
+            yield return new WaitForSeconds(attackDelay);
+            isAttacking = false;
+
+            if (ferramentas == 2 || ferramentas == 3)
+            {
+                RaycastHit2D hit = Physics2D.Raycast(transform.position, isMovingRight ? Vector2.right : Vector2.left, attackRange, LayerMask.GetMask("Enemies"));
+ 
+            }
+        }
+
+        private void Ferramentas()
+        {
+            if (Input.GetKeyDown(KeyCode.LeftShift))
+            {
+                ferramentas++;
+                if (ferramentas > 4) ferramentas = 1;
+
+                switch (ferramentas)
+                {
+                    case 1:
+                        picareta.SetActive(false);
+                        machado.SetActive(false);
+                        facao.SetActive(false);
+                        marreta.SetActive(true);
+                        break;
+                    case 2:
+                        picareta.SetActive(true);
+                        machado.SetActive(false);
+                        facao.SetActive(false);
+                        marreta.SetActive(false);
+                        break;
+                    case 3:
+                        picareta.SetActive(false);
+                        machado.SetActive(true);
+                        facao.SetActive(false);
+                        marreta.SetActive(false);
+                        break;
+                    case 4:
+                        picareta.SetActive(false);
+                        machado.SetActive(false);
+                        facao.SetActive(true);
+                        marreta.SetActive(false);
+                        break;
+                }
+            }
+        }
+
+        private void Exiting()
+        {
+            if (Exit)
+            {
+                transform.position = Vector2.up * 10 * Time.deltaTime;
+            }
+        }
+
+        private void OnTriggerEnter2D(Collider2D collision)
+        {
+            if (collision.gameObject.layer == 9)
+            {
+                isJumping = false;
+                isDoubleJumping = false;
+            }
+        }
+
+        private void OnCollisionEnter2D(Collision2D collision)
+        {
+            if (collision.gameObject.layer == 9)
+            {
+                isJumping = false;
+                isDoubleJumping = false;
+            }
+        }
+
+        public void ResetAnim()
+        {
+            isAttacking = false;
+            speed = initialSpeed;
+            jumpForce = initialJumpForce;
+        }
+
+        public void animDestroyRigth()
+        {
+            forcejump = 0;
+            DG.Tweening.Sequence leverSequence = DOTween.Sequence();
+
+            leverSequence.Append(transform.DORotate(new Vector3(0, 0, slowAngle), slowDuration)
+                .SetEase(Ease.InOutSine));
+
+            leverSequence.Append(transform.DORotate(new Vector3(0, 0, fastAngle), fastDuration)
+                .SetEase(Ease.OutBack));
+
+            leverSequence.Append(transform.DORotate(new Vector3(0, 0, 0), fastDuration)
+                .SetEase(Ease.InOutSine))
+                .OnComplete(() =>
+                {
+                    DOTween.Kill(transform);
+                    speed = initialSpeed;
+                    Debug.Log("Animaï¿½ï¿½o concluï¿½da!");
+                    attack.SetActive(true);
+                    ResetAnim();
+                    forcejump = initialJumpForce;
+                });
+
+            DG.Tweening.Sequence leverSequencePicareta = DOTween.Sequence();
+
+            leverSequencePicareta.Append(picareta.transform.DORotate(new Vector3(0, 0, slowAngle), slowDuration)
+                .SetEase(Ease.InOutSine));
+
+            leverSequencePicareta.Append(picareta.transform.DORotate(new Vector3(0, 0, fastAngle), fastDuration)
+                .SetEase(Ease.OutBack));
+
+            leverSequencePicareta.Append(picareta.transform.DORotate(new Vector3(0, 0, 0), fastDuration)
+                .SetEase(Ease.InOutSine))
+                .OnComplete(() =>
+                {
+                    DOTween.Kill(transform);
+                    speed = initialSpeed;
+                    Debug.Log("Animaï¿½ï¿½o concluï¿½da!");
+                    attack.SetActive(true);
+                    ResetAnim();
+                    forcejump = initialJumpForce;
+                });
+
+            speed = 0;
+            forcejump = 0;
+        }
+
+        public void animDestroyLeft()
+        {
+            forcejump = 0;
+            DG.Tweening.Sequence leverSequence = DOTween.Sequence();
+
+            leverSequence.Append(transform.DORotate(new Vector3(0, 0, -slowAngle), slowDuration)
+                .SetEase(Ease.InOutSine));
+
+            leverSequence.Append(transform.DORotate(new Vector3(0, 0, -fastAngle), fastDuration)
+                .SetEase(Ease.OutBack));
+
+            leverSequence.Append(transform.DORotate(new Vector3(0, 0, 0), fastDuration)
+                .SetEase(Ease.InOutSine))
+                .OnComplete(() =>
+                {
+                    DOTween.Kill(transform);
+                    speed = initialSpeed;
+                    Debug.Log("Animaï¿½ï¿½o concluï¿½da!");
+                    attack.SetActive(true);
+                    ResetAnim();
+                    forcejump = initialJumpForce;
+                });
+
+            DG.Tweening.Sequence leverSequencePicareta = DOTween.Sequence();
+
+            leverSequencePicareta.Append(picareta.transform.DORotate(new Vector3(0, 0, -slowAngle), slowDuration)
+                .SetEase(Ease.InOutSine));
+
+            leverSequencePicareta.Append(picareta.transform.DORotate(new Vector3(0, 0, -fastAngle), fastDuration)
+                .SetEase(Ease.OutBack));
+
+            leverSequencePicareta.Append(picareta.transform.DORotate(new Vector3(0, 0, 0), fastDuration)
+                .SetEase(Ease.InOutSine))
+                .OnComplete(() =>
+                {
+                    DOTween.Kill(transform);
+                    speed = initialSpeed;
+                    Debug.Log("Animaï¿½ï¿½o concluï¿½da!");
+                    attack.SetActive(true);
+                    ResetAnim();
+                    forcejump = initialJumpForce;
+                });
+
+            speed = 0;
+            forcejump = 0;
         }
     }
 
 
-    private void OnCollisionStay2D(Collision2D collision)
-    {
-        if (collision.gameObject.layer == 7 && Input.GetKeyDown(KeyCode.E))
-        {
-
-           
-                animDestroyRigth();
-            
-        }
-
-        if (collision.gameObject.layer == 8 && Input.GetKeyDown(KeyCode.E))
-        {
-
-            animDestroyLeft();
-            
-        }
-
-
-    }
-
-    private void OnTriggerStay2D(Collider2D collision)
-    {
-        if (collision.gameObject.layer == 7 && Input.GetKeyDown(KeyCode.E))
-        {
-
-
-            animDestroyRigth();
-
-        }
-
-        if (collision.gameObject.layer == 8 && Input.GetKeyDown(KeyCode.E))
-        {
-
-
-            animDestroyLeft();
-
-        }
-
-
-    }
-
-
-
-
-
-}
-
-
-
-
-   
