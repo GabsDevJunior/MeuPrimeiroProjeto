@@ -175,9 +175,12 @@ MonoBehaviour:
   anim: {fileID: 4051100254084428813}
   side: 3
   moviment: {x: -1, y: 0, z: 0}
+  danoGoblinMartelo: 2
   negativo: 0
-  Attack: {fileID: 0}
   Barrier: {fileID: 0}
+  attack: 0
+  destroyTime: 0
+  destroyDelay: 0.5
 --- !u!95 &4051100254084428813
 Animator:
   serializedVersion: 5
