@@ -3,39 +3,27 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags:
-  - barrier
-  - Attack
-  - attack
-<<<<<<< HEAD
-  - Tree
-  - pedra
-=======
->>>>>>> 03095ea7e1d6807147ed9ff5b7e6d3979ed59e5b
+  tags: []
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - pedra
+  - 
   - Water
   - UI
-  - player
-  - Rigth
-  - Left
-  - ground
-  - picareta
-  - mudancaLeft
-  - grade
-  - Exit
-  - Enemy
-  - grade2
-  - atack
-  - craftTable
-<<<<<<< HEAD
-  - projetil
-=======
   - 
->>>>>>> 03095ea7e1d6807147ed9ff5b7e6d3979ed59e5b
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
   - 
   - 
   - 
