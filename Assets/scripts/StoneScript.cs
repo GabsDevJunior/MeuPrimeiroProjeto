@@ -28,7 +28,11 @@ public class StoneScript : MonoBehaviour
     }
     private void Start()
     {
+<<<<<<< HEAD
         
+=======
+        TextTree = player.TextStone;
+>>>>>>> 03095ea7e1d6807147ed9ff5b7e6d3979ed59e5b
         Press.SetActive(false);
         E.SetActive(false);
     }
@@ -37,11 +41,21 @@ public class StoneScript : MonoBehaviour
     {
         if(isBreaking)
         {
+<<<<<<< HEAD
             DestroyTime += Time.deltaTime;
             if (DestroyTime >= DestroyDelay)
             {
                 isBreaking = false;
             }
+=======
+
+                treeBase.isReviving = true;
+                myTree.SetActive(false);
+                treeCounts += 1f;
+                TextTree.text = treeCounts.ToString();
+                colidi = false;
+            
+>>>>>>> 03095ea7e1d6807147ed9ff5b7e6d3979ed59e5b
         }
         if (colidi)
         {
@@ -65,6 +79,7 @@ public class StoneScript : MonoBehaviour
         if (collision.gameObject.layer == 16 )
 
         {
+<<<<<<< HEAD
             if(!isBreaking)
             {
                 if (player.ferramentas == 2)
@@ -74,6 +89,16 @@ public class StoneScript : MonoBehaviour
                }
             }
     }
+=======
+
+            if (player.ferramentas == 2)
+            {
+
+                colidi = true;
+                Delay = true;
+            }
+        }
+>>>>>>> 03095ea7e1d6807147ed9ff5b7e6d3979ed59e5b
     }
 
     private void OnTriggerExit2D(Collider2D collision)

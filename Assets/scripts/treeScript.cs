@@ -24,6 +24,10 @@ public class treeScript : MonoBehaviour
 
     private void Start()
     {
+<<<<<<< HEAD
+=======
+        TextTree = player.TextTree;
+>>>>>>> 03095ea7e1d6807147ed9ff5b7e6d3979ed59e5b
         Press.SetActive(false);
         E.SetActive(false);
         treeBase = FindObjectOfType<TreeBase>();
@@ -36,7 +40,12 @@ public class treeScript : MonoBehaviour
         {  
                 treeBase.isReviving = true;
                 myTree.SetActive(false);
+<<<<<<< HEAD
                 player.treeCounts += 1;
+=======
+                treeCounts += 1f;
+                TextTree.text = treeCounts.ToString();
+>>>>>>> 03095ea7e1d6807147ed9ff5b7e6d3979ed59e5b
                 colidi = false;
         }
 

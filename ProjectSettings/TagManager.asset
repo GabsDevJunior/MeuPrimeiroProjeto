@@ -7,8 +7,11 @@ TagManager:
   - barrier
   - Attack
   - attack
+<<<<<<< HEAD
   - Tree
   - pedra
+=======
+>>>>>>> 03095ea7e1d6807147ed9ff5b7e6d3979ed59e5b
   layers:
   - Default
   - TransparentFX
@@ -28,7 +31,11 @@ TagManager:
   - grade2
   - atack
   - craftTable
+<<<<<<< HEAD
   - projetil
+=======
+  - 
+>>>>>>> 03095ea7e1d6807147ed9ff5b7e6d3979ed59e5b
   - 
   - 
   - 

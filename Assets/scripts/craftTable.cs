@@ -6,6 +6,7 @@ using UnityEngine.UI;
 
 public class craftTable : MonoBehaviour
 {
+<<<<<<< HEAD
     public GameObject Craft;
 
     public treeScript tree;
@@ -33,13 +34,26 @@ public class craftTable : MonoBehaviour
 
             } 
     }
+=======
+    public Text flechaCount;
+    public Text gradeCount;
+    public GameObject Craft;
+
+    public int flecha;
+    public int grade;
+    public treeScript tree;
+    public StoneScript stone;
+>>>>>>> 03095ea7e1d6807147ed9ff5b7e6d3979ed59e5b
 
     // Start is called before the first frame update
     void Start()
     {
+<<<<<<< HEAD
         Press.SetActive(false);
         E.SetActive(false);
         player = FindObjectOfType<Player>();
+=======
+>>>>>>> 03095ea7e1d6807147ed9ff5b7e6d3979ed59e5b
         tree = FindObjectOfType<treeScript>();
         stone = FindObjectOfType<StoneScript>();
     }
@@ -47,6 +61,7 @@ public class craftTable : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+<<<<<<< HEAD
        
     }
 
@@ -57,15 +72,34 @@ public class craftTable : MonoBehaviour
         {
             player.treeCounts--;
            player.flecha += 2;
+=======
+        flechaCount.text = flecha.ToString();
+        gradeCount.text = grade.ToString();
+    }
+
+    public void craftFlecha()
+    {
+        if (tree.treeCounts > 0)
+        {
+            tree.treeCounts--;
+            flecha += 1;
+>>>>>>> 03095ea7e1d6807147ed9ff5b7e6d3979ed59e5b
         }
 
     }
     public void craftGrade()
     {
+<<<<<<< HEAD
         if (player.stoneCounts > 0)
         {
             player.stoneCounts--;
             player.grade += 1;
+=======
+        if (stone.treeCounts > 0)
+        {
+            stone.treeCounts--;
+            grade += 1;
+>>>>>>> 03095ea7e1d6807147ed9ff5b7e6d3979ed59e5b
         }
 
     }
@@ -75,6 +109,7 @@ public class craftTable : MonoBehaviour
         Craft.SetActive(false);
     }
 
+<<<<<<< HEAD
     private void OnTriggerStay2D(Collider2D other)
     {
         if(other.gameObject.layer == 6)
@@ -104,3 +139,15 @@ public class craftTable : MonoBehaviour
 }
 
 
+=======
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if(other.gameObject.layer == 6)
+        {
+            Craft.SetActive(true);
+        }
+    }
+
+
+}
+>>>>>>> 03095ea7e1d6807147ed9ff5b7e6d3979ed59e5b

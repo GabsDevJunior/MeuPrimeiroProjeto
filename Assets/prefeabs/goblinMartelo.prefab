@@ -76,7 +76,11 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
+<<<<<<< HEAD
   m_SortingOrder: 5
+=======
+  m_SortingOrder: 0
+>>>>>>> 03095ea7e1d6807147ed9ff5b7e6d3979ed59e5b
   m_Sprite: {fileID: 1064444813, guid: 85048a3f6c91a234aba05ccf9bcfaa91, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -120,7 +124,11 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
+<<<<<<< HEAD
   m_Offset: {x: -0.097275734, y: -0.04354529}
+=======
+  m_Offset: {x: -0.097275734, y: 0}
+>>>>>>> 03095ea7e1d6807147ed9ff5b7e6d3979ed59e5b
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -131,7 +139,11 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
+<<<<<<< HEAD
   m_Size: {x: 0.7059612, y: 0.91087735}
+=======
+  m_Size: {x: 0.7059612, y: 0.82378674}
+>>>>>>> 03095ea7e1d6807147ed9ff5b7e6d3979ed59e5b
   m_EdgeRadius: 0
 --- !u!50 &57117937798445460
 Rigidbody2D:
@@ -173,6 +185,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   anim: {fileID: 4051100254084428813}
+<<<<<<< HEAD
   side: 5
   moviment: {x: -1, y: 0, z: 0}
   dano: 4
@@ -187,6 +200,16 @@ MonoBehaviour:
   destroyDelay: 0.5
   attack2: 0
   attacking: 0
+=======
+  side: 3
+  moviment: {x: -1, y: 0, z: 0}
+  danoGoblinMartelo: 2
+  negativo: 0
+  Barrier: {fileID: 0}
+  attack: 0
+  destroyTime: 0
+  destroyDelay: 0.5
+>>>>>>> 03095ea7e1d6807147ed9ff5b7e6d3979ed59e5b
 --- !u!95 &4051100254084428813
 Animator:
   serializedVersion: 5

@@ -24,6 +24,7 @@ public class barrier : MonoBehaviour
 
     }
 
+<<<<<<< HEAD
 public void CreateFloatingText(string message)
 {
     GameObject textObject = new GameObject("FloatingText");
@@ -35,6 +36,9 @@ public void CreateFloatingText(string message)
 
     textObject.transform.position = transform.position + Vector3.up;
 }
+=======
+
+>>>>>>> 03095ea7e1d6807147ed9ff5b7e6d3979ed59e5b
     public void Damage(int damage)
     {
         Life -= damage;

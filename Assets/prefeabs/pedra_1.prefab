@@ -232,9 +232,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 41be04e4fe9f4ce4e98d8b899be7c350, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+<<<<<<< HEAD
   isBreaking: 0
   DestroyTime: 0
   DestroyDelay: 10
+=======
+  DestroyTime: 0
+  DestroyDelay: 2.5
+>>>>>>> 03095ea7e1d6807147ed9ff5b7e6d3979ed59e5b
   treeBase: {fileID: 0}
   player: {fileID: 0}
   myTree: {fileID: 0}
