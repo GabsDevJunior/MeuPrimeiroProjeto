@@ -11,6 +11,7 @@ public class TreeBase : MonoBehaviour
     public GameObject tree5;
     public GameObject tree6;
 
+
     public Transform positionToShoot;
 
     public float TimeShoot;
@@ -150,4 +151,6 @@ public class TreeBase : MonoBehaviour
             }
         }
     }
+
+    
 }

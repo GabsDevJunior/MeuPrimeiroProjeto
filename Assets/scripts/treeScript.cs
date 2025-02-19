@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
+using UnityEngine.UI;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -11,13 +12,20 @@ public class treeScript : MonoBehaviour
     public TreeBase treeBase;
     public Player player;
     public GameObject myTree;
-    
+    public GameObject E;
+    public GameObject Press;
+
     public bool colidi;
     public bool Delay;
+
+    public float treeCounts;
+    public Text TextTree;
 
 
     private void Start()
     {
+        Press.SetActive(false);
+        E.SetActive(false);
         treeBase = FindObjectOfType<TreeBase>();
         player = FindObjectOfType<Player>();
     }
@@ -25,20 +33,11 @@ public class treeScript : MonoBehaviour
     private void Update()
     {
         if(colidi)
-        {
-            player.ferramentas = 3;
-            if (Delay)
-            {
-                DestroyTime += Time.deltaTime;
-            }
-            if(DestroyTime >= DestroyDelay)
-            {
+        {  
                 treeBase.isReviving = true;
-                DestroyTime = 0;
                 myTree.SetActive(false);
+                player.treeCounts += 1;
                 colidi = false;
-                Delay = false;
-            }
         }
 
       
@@ -48,10 +47,26 @@ public class treeScript : MonoBehaviour
 
     private void OnTriggerStay2D(Collider2D collision)
     {
-        if (collision.gameObject.layer == 6 && Input.GetKeyDown(KeyCode.E))
+        if(collision.gameObject.layer == 6)
         {
-           colidi = true;
-            Delay = true;
+            Press.SetActive(true);
+            E.SetActive(true);
+        }
+        if (collision.gameObject.layer == 16 && player.ferramentas == 3)
+
+        {
+            
+                colidi = true;
+            
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.gameObject.layer == 6)
+        {
+            Press.SetActive(false);
+            E.SetActive(false);
         }
     }
 }

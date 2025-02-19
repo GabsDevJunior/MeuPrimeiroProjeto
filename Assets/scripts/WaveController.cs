@@ -9,7 +9,9 @@ public class WaveController : MonoBehaviour
     public float GoblinPart;
 
     public Transform WaveRight;
+    public Transform WaveLeft;
     public GameObject goblinPrefeab;
+     public GameObject MagoPrefeab;
     // Start is called before the first frame update
     void Start()
     {
@@ -24,11 +26,34 @@ public class WaveController : MonoBehaviour
     }
     void PartWave()
     {
-
-        if (timeWave >= 10f && timeWave < 10.01f )
+//goblin
+        if (timeWave >= 10f && timeWave <= 10.2f )
         {
             var projectile = Instantiate(goblinPrefeab);
             projectile.transform.position = WaveRight.position;
         }
+        if (timeWave >= 10f && timeWave <= 10.2f)
+        {
+            var projectile = Instantiate(goblinPrefeab);
+            projectile.transform.position = WaveLeft.position;
+        }
+
+//mago
+        if (timeWave >= 10f && timeWave <= 10.2f )
+        {
+            var projectile = Instantiate(MagoPrefeab);
+            projectile.transform.position = WaveRight.position;
+        }
+        if (timeWave >= 10f && timeWave <= 10.2f)
+        {
+            var projectile = Instantiate(MagoPrefeab);
+            projectile.transform.position = WaveLeft.position;
+        }
+       
+
+
     }
+
+
+
 }

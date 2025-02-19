@@ -13,7 +13,8 @@ GameObject:
   - component: {fileID: 7441092401244274430}
   - component: {fileID: 57117937798445460}
   - component: {fileID: 2436896995246187748}
-  m_Layer: 0
+  - component: {fileID: 4051100254084428813}
+  m_Layer: 14
   m_Name: goblinMartelo
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -29,7 +30,7 @@ Transform:
   m_GameObject: {fileID: 3659944030065599465}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 30.06, y: -4.92, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -75,8 +76,8 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
-  m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
+  m_SortingOrder: 5
+  m_Sprite: {fileID: 1064444813, guid: 85048a3f6c91a234aba05ccf9bcfaa91, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -116,10 +117,10 @@ BoxCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: -0.097275734, y: -0.04354529}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -130,7 +131,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 0.7059612, y: 0.91087735}
   m_EdgeRadius: 0
 --- !u!50 &57117937798445460
 Rigidbody2D:
@@ -158,7 +159,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 6
 --- !u!114 &2436896995246187748
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -171,5 +172,39 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 58627950e3524104da6ac54eeb406cc5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  side: 3
+  anim: {fileID: 4051100254084428813}
+  side: 5
   moviment: {x: -1, y: 0, z: 0}
+  dano: 4
+  danoForMe: 0
+  Life: 5
+  negativo: 0
+  Barrier: {fileID: 0}
+  Barrier2: {fileID: 0}
+  NoMago: 1
+  attack: 0
+  destroyTime: 0
+  destroyDelay: 0.5
+  attack2: 0
+  attacking: 0
+--- !u!95 &4051100254084428813
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3659944030065599465}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: e82aa9a1d5c75764bb2dbb1268f9ff92, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0

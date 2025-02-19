@@ -5,10 +5,12 @@ using UnityEngine;
 
 public class projetilBase : MonoBehaviour
 {
-    public float layerEnemy = 9;
+    public float layerEnemy = 14;
     public float time = 2;
     public Vector3 direction;
     public float side = 1;
+
+    public bool Left;
 
     public float cooldown;
     public float fire;
@@ -21,7 +23,6 @@ public class projetilBase : MonoBehaviour
 
     void Update()
     {
-
         transform.Translate(direction * Time.deltaTime * side);
     }
 
@@ -30,6 +31,14 @@ public class projetilBase : MonoBehaviour
 
         Destroy(gameObject, time);
 
+    }
+
+    void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.layer == layerEnemy)
+        {
+            Destroy(gameObject);
+        }
     }
 
 

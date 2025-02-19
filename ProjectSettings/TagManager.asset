@@ -3,7 +3,12 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - barrier
+  - Attack
+  - attack
+  - Tree
+  - pedra
   layers:
   - Default
   - TransparentFX
@@ -16,14 +21,14 @@ TagManager:
   - Left
   - ground
   - picareta
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
+  - mudancaLeft
+  - grade
+  - Exit
+  - Enemy
+  - grade2
+  - atack
+  - craftTable
+  - projetil
   - 
   - 
   - 
